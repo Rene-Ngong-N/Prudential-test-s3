@@ -13,7 +13,7 @@ pipeline {
         stage('Upload') {
           steps {
             withAWS(credentials: 'aws-creds', region: 'us-east-2') {
-             s3Upload(file:'file.txt' 'rene.txt', bucket:'big-thing-happen-big1', path:'file.txt' 'rene.txt')
+             s3Upload(file:'file.txt','rene.txt', bucket:'big-thing-happen-big1', path:'file.txt','rene.txt')
             }
           }
         }
