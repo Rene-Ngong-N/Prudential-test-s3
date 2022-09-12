@@ -1,0 +1,1 @@
+echo "the world is a good place to be.
