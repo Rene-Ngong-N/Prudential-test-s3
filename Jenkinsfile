@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Make Bucket') {
             steps {
               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
                 sh 'python3 createS3bucket.py'
@@ -10,7 +10,7 @@ pipeline {
               }
             }
         }
-        stage('Uploas') {
+        stage('Upload') {
           steps {
             withAWS(credentials: 'aws-creds', region: 'us-east-2') {
              s3Upload(file:'file.txt', bucket:'big-thing-happen-big1', path:'file.txt')
