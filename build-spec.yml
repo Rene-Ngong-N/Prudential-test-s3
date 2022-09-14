@@ -25,6 +25,7 @@ phases:
       - python createS3bucket.py $BUCKET_NAME
       # upload file to bucket
       - aws s3 cp file.txt s3://$BUCKET_NAME
+      - aws s3 cp rene.txt s3://$BUCKET_NAME
   post_build:
     on-failure: CONTINUE   
     commands:
