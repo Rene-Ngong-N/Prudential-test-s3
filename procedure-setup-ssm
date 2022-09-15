@@ -29,16 +29,16 @@ Verify if AWS Connector for GitHub already installed on your Github
     Go to below url and verify
     URL: https://github.com/settings/installations
 
-Step-13: Create Github Connection from AWS Developer Tools
+Step-3: Create Github Connection from AWS Developer Tools
 
     Go to Services -> CodePipeline -> Create Pipeline
     In Developer Tools -> Click on Settings -> Connections -> Create Connection
     Select Provider: Github
-    Connection Name: python-iacdevops-aws-cp-con1
+    Connection Name: python-poc-devops-aws-cp-con1
     Click on Connect to Github
     GitHub Apps: Click on Install new app
     It should redirect to github page Install AWS Connector for GitHub
-    Only select repositories: python-iacdevops-with-aws-codepipeline
+    Only select repositories: python-poc-devops-with-aws-codepipeline
     Click on Install
     Click on Connect
     Verify Connection Status: It should be in Available state
@@ -46,13 +46,13 @@ Step-13: Create Github Connection from AWS Developer Tools
     URL: https://github.com/settings/installations
     You should see Install AWS Connector for GitHub app installed
 
-Step-14: Create AWS CodePipeline
+Step-4: Create AWS CodePipeline
 
     Go to Services -> CodePipeline -> Create Pipeline
 
 Pipeline settings
 
-    Pipeline Name: python-iacdevops-aws-cp1
+    Pipeline Name: python-poc-devops-aws-cp1
     Service role: New Service Role
     rest all defaults
         Artifact store: Default Location
@@ -62,7 +62,7 @@ Pipeline settings
 Source Stage
 
     Source Provider: Github (Version 2)
-    Connection: python-iacdevops-aws-cp-con1
+    Connection: python-poc-devops-aws-cp-con1
     Repository name: python-iacdevops-with-aws-codepipeline
     Branch name: main
     Change detection options: leave to defaults as checked
@@ -73,7 +73,7 @@ Add Build Stage
     Build Provider: AWS CodeBuild
     Region: N.Virginia
     Project Name: Click on Create Project
-        Project Name: codebuild-python-iacdevops-aws-cp1
+        Project Name: codebuild-python-poc-devops-aws-cp1
         Description: CodeBuild Project for Dev Stage of IAC DevOps python Demo
         Environment image: Managed Image
         Operating System: Amazon Linux 2
@@ -85,7 +85,7 @@ Add Build Stage
         Buildspec name - optional: buildspec-dev.yml (Ensure that this file is present in root folder of your github repository)
         Rest all leave to defaults
         Click on Continue to CodePipeline
-    Project Name: This value should be auto-populated with codebuild-python-iacdevops-aws-cp1
+    Project Name: This value should be auto-populated with codebuild-python-poc-devops-aws-cp1
     Build Type: Single Build
     Click Next
 
@@ -97,7 +97,7 @@ Review Stage
 
     Click on Create Pipeline
 
-Step-15: Verify the Pipeline created
+Step-5: Verify the Pipeline created
 
     Verify Source Stage: Should pass
     Verify Build Stage: should fail with error
@@ -105,17 +105,17 @@ Step-15: Verify the Pipeline created
 
 Decrypted Variables Error Message: AccessDeniedException: User: arn:aws:sts::180789647333:assumed-role/codebuild-codebuild-python-iacdevops-aws-cp1-service-role/AWSCodeBuild-97595edc-1db1-4070-97a0-71fa862f0993 is not authorized to perform: ssm:GetParameters on resource: arn:aws:ssm:us-east-1:180789647333:parameter/CodeBuild/MY_AWS_ACCESS_KEY_ID
 
-Step-16: Fix ssm:GetParameters IAM Role issues
-Step-16-01: Get IAM Service Role used by CodeBuild Project
+Step-6: Fix ssm:GetParameters IAM Role issues
+Step-6-01: Get IAM Service Role used by CodeBuild Project
 
     Get the IAM Service Role name CodeBuild Project is using
-    Go to CodeBuild -> codebuild-python-iacdevops-aws-cp1 -> Edit -> Environment
+    Go to CodeBuild -> codebuild-python-poc-devops-aws-cp1 -> Edit -> Environment
     Make a note of Service Role ARN
 
 # CodeBuild Service Role ARN 
-arn:aws:iam::180789647333:role/service-role/codebuild-codebuild-python-iacdevops-aws-cp1-service-role
+arn:aws:iam::180789647333:role/service-role/codebuild-codebuild-python-poc-devops-aws-cp1-service-role
 
-Step-16-02: Create IAM Policy with Systems Manager Get Parameter Read Permission
+Step-7: Create IAM Policy with Systems Manager Get Parameter Read Permission
 
     Go to Services -> IAM -> Policies -> Create Policy
     Service: Systems Manager
@@ -127,14 +127,14 @@ Step-16-02: Create IAM Policy with Systems Manager Get Parameter Read Permission
     Policy Description: Read Parameters from Parameter Store in AWS Systems Manager Service
     Click on Create Policy
 
-Step-16-03: Associate this Policy to IAM Role
+Step-8: Associate this Policy to IAM Role
 
-    Go to Services -> IAM -> Roles -> Search for codebuild-codebuild-python-iacdevops-aws-cp1-service-role
+    Go to Services -> IAM -> Roles -> Search for codebuild-codebuild-python-poc-devops-aws-cp1-service-role
     Attach the polic named systems-manger-get-parameter-access
 
-Step-17: Re-run the CodePipeline
+Step-9: Re-run the CodePipeline
 
-    Go to Services -> CodePipeline -> python-iacdevops-aws-cp1
+    Go to Services -> CodePipeline -> python-poc-devops-aws-cp1
     Click on Release Change
     Verify Source Stage:
         Should pass
@@ -142,4 +142,4 @@ Step-17: Re-run the CodePipeline
         Verify Build Stage logs by clicking on details in pipeline screen
         Verify Cloudwatch -> Log Groups logs too (Logs saved in CloudWatch for additional reference)
 
-Step-18: Verify Resources
+Step-10: Verify Resources

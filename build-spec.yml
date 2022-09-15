@@ -1,32 +1,32 @@
-version: 0.2
+#version: 0.2
 
-env:
-  variables:
-    BUCKET_NAME: "what-is-your-bucket-na1"
-  parameter-store:
-    AWS_ACCESS_KEY_ID: "/CodeBuild/MY_AWS_ACCESS_KEY_ID"
-    AWS_SECRET_ACCESS_KEY: "/CodeBuild/MY_AWS_SECRET_ACCESS_KEY"
+#env:
+#  variables:
+#    BUCKET_NAME: "what-is-your-bucket-na12"
+#  parameter-store:
+#    AWS_ACCESS_KEY_ID: "/CodeBuild/MY_AWS_ACCESS_KEY_ID"
+#    AWS_SECRET_ACCESS_KEY: "/CodeBuild/MY_AWS_SECRET_ACCESS_KEY"
     
-phases:
-  install:
-    on-failure: ABORT       
-    commands:
-      - pip install boto3
-  pre_build:
-    on-failure: ABORT     
-    commands:
-      - echo execution started on `date`            
-  build:
-    on-failure: ABORT   
-    commands:
-      - cd "$CODEBUILD_SRC_DIR"
-      - ls -lrt "$CODEBUILD_SRC_DIR"
-      #run python script to create bucket or ignore if it exists
-      - python createS3bucket.py $BUCKET_NAME
-      # upload file to bucket
-      - aws s3 cp file.txt s3://$BUCKET_NAME
-      - aws s3 cp rene.txt s3://$BUCKET_NAME
-  post_build:
-    on-failure: CONTINUE   
-    commands:
-      - echo execution completed on `date` 
+#phases:
+#  install:
+#    on-failure: ABORT       
+#    commands:
+#      - pip install boto3
+#  pre_build:
+#    on-failure: ABORT     
+#    commands:
+#      - echo execution started on `date`            
+#  build:
+#    on-failure: ABORT   
+#    commands:
+#      - cd "$CODEBUILD_SRC_DIR"
+#      - ls -lrt "$CODEBUILD_SRC_DIR"
+#      #run python script to create bucket or ignore if it exists
+#      - python createS3bucket.py $BUCKET_NAME
+#      # upload file to bucket
+#      - aws s3 cp file.txt s3://$BUCKET_NAME
+#      - aws s3 cp rene.txt s3://$BUCKET_NAME
+#  post_build:
+#    on-failure: CONTINUE   
+#    commands:
+#      - echo execution completed on `date` 
