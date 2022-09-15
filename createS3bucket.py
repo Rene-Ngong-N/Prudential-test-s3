@@ -43,12 +43,12 @@
  #!/bin/bash/env python3
 import boto3
 
- sess= boto3.Session(region_name='us-east-2')
- s3client = sess.client('s3')
- bucket_name='good-trying3'
- s3_location={
-     'LocationConstraint': 'us-east-2'
- }
+sess= boto3.Session(region_name='us-east-2')
+s3client = sess.client('s3')
+bucket_name='good-trying3'
+s3_location={
+    'LocationConstraint': 'us-east-2'
+}
 
  def bucket_exists(bucket_name):
    s3 = boto3.resource('s3')
