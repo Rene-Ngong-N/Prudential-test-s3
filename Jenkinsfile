@@ -38,8 +38,6 @@ pipeline {
               pwd():
               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
                 s3Upload(file:'rene.txt', bucket:'good-trying3', path:'rene.txt',)
-//                def identity=awsIdentity():
-//                s3Upload(bucket:"big-thing-happen-big1", workingDir:'', includePathPatten:'**/*')
               }
             }
           }
