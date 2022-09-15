@@ -34,13 +34,10 @@ pipeline {
         }
         stage('upload to Bucket') {
           steps{
-            dir('') {
-              pwd():
               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
                 s3Upload(file:'rene.txt', bucket:'good-trying3', path:'rene.txt',)
               }
             }
-          }
         }
     }
 }
