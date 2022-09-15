@@ -45,7 +45,7 @@ import boto3
 
 sess= boto3.Session(region_name='us-east-2')
 s3client = sess.client('s3')
-bucket_name='good-trying33'
+bucket_name='good-trying313'
 s3_location={
     'LocationConstraint': 'us-east-2'
 }
