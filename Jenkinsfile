@@ -1,30 +1,8 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Make Bucket') {
-            steps {
-              withAWS(credentials: 'aws-creds', region: 'us-east-2') {
-                sh 'python3 createS3bucket.py'
-
-              }
-            }
-        }
-        stage('Upload') {
-          steps {
-            withAWS(credentials: 'aws-creds', region: 'us-east-2') {
-             s3Upload(file:'rene.txt', bucket:'good-trying3', path:'rene.txt',)
-            }
-          }
-        }
-    }
-}
-
 // pipeline {
 //     agent any
 
 //     stages {
-//         stage('Hello') {
+//         stage('Make Bucket') {
 //             steps {
 //               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
 //                 sh 'python3 createS3bucket.py'
@@ -32,17 +10,40 @@ pipeline {
 //               }
 //             }
 //         }
-//         stage('upload to s3') {
-//           steps{
-//             dir('') {
-//               pwd():
-//               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
-//                 def identity=awsIdentity():
-//                 s3Upload(bucket:"big-thing-happen-big1", workingDir:'', includePathPatten:'**/*')
-//               }
+//         stage('Upload') {
+//           steps {
+//             withAWS(credentials: 'aws-creds', region: 'us-east-2') {
+//              s3Upload(file:'rene.txt', bucket:'good-trying3', path:'rene.txt',)
 //             }
 //           }
 //         }
 //     }
 // }
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Make-Bucket') {
+            steps {
+              withAWS(credentials: 'aws-creds', region: 'us-east-2') {
+                sh 'python3 createS3bucket.py'
+
+              }
+            }
+        }
+        stage('upload to Bucket') {
+          steps{
+            dir('') {
+              pwd():
+              withAWS(credentials: 'aws-creds', region: 'us-east-2') {
+                s3Upload(file:'rene.txt', bucket:'good-trying3', path:'rene.txt',)
+//                def identity=awsIdentity():
+//                s3Upload(bucket:"big-thing-happen-big1", workingDir:'', includePathPatten:'**/*')
+              }
+            }
+          }
+        }
+    }
+}
 
