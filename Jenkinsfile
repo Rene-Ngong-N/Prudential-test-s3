@@ -35,7 +35,7 @@ pipeline {
         stage('upload to Bucket') {
           steps{
               withAWS(credentials: 'aws-creds', region: 'us-east-2') {
-                s3Upload(file:'rene.txt', bucket:'good-trying3123', path:'rene.txt',)
+                s3Upload(file:'rene.txt', bucket:'good-trying', path:'rene.txt',)
               }
             }
         }
