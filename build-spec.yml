@@ -24,7 +24,7 @@ phases:
      #run python script to create bucket or ignore if it exists
      - python createS3bucket.py $BUCKET_NAME
      # upload file to bucket
-    #  - aws s3 cp file.txt s3://$BUCKET_NAME
+     - aws s3 cp file.txt s3://$BUCKET_NAME
      - aws s3 cp job.txt s3://$BUCKET_NAME
  post_build:
    on-failure: CONTINUE   
