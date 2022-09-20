@@ -10,7 +10,7 @@
 # s3_location={
 #     'LocationConstraint': 'us-east-2'
 # }
-
+################# This section is for aws copepipeline
 import sys
 import boto3
 
@@ -36,7 +36,7 @@ else:
  print('the bucket created')
 
 
-
+#######################The above is for aws codepipeline
 
 
 
