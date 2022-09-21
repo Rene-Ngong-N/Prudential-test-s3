@@ -19,6 +19,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Configure AWS Credentials
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.MY_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -28,15 +35,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install boto3
         sudo apt-get install awscli
-        #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: create bucket 
     #Lint with flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
         python3 createS3bucket.py
-        #flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest
+       
+
