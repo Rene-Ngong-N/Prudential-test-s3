@@ -26,7 +26,7 @@ pipeline {
     stages {
         stage('Make-Bucket') {
             steps {
-              withAWS(credentials: 'aws-creds', region: 'us-east-2') {
+              withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                 sh 'python3 createS3bucket.py'
 
               }
